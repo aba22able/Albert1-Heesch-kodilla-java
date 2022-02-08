@@ -61,7 +61,14 @@ public class CollectionTestSuite
         List<Integer> testingEvenList = oddNumbersExterminator.exterminate(regularList);
         System.out.println("testingList is filled with even numbers");
 
+        List<Integer> expectedSimilarList = new ArrayList<>();
+        expectedSimilarList.add(2);
+        expectedSimilarList.add(6);
+        expectedSimilarList.add(2);
+        System.out.println("expectedSimilarList is filled with even numbers");
+
         //Then
-        Assertions.assertNotEquals(regularList, testingEvenList);
+        Assertions.assertEquals(testingEvenList, expectedSimilarList);
+
     }
 }
