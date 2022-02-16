@@ -1,15 +1,14 @@
 package com.kodilla.testing.weather.stub;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WeatherForecast {
     private Temperatures temperatures;
+    List<Double> temperaturesList;
 
     public WeatherForecast(Temperatures temperatures) {
         this.temperatures = temperatures;
+        temperaturesList = new ArrayList<>(temperatures.getTemperatures().values());
     }
 
     public Map<String, Double> calculateForecast() {
@@ -25,34 +24,34 @@ public class WeatherForecast {
         return resultMap;
     }
 
-    //public double getAvgTemp(List<Integer> temperatures)
-   // {
-        //double tempSume = 0;
-        //for(Integer temperature: temperatures)
-        //{
-           // tempSume += temperature;
-        //}
+    public double getAvgTemp()
+    {
+        double tempSume = 0;
+        for(Double temperature: temperaturesList)
+        {
+            tempSume += temperature;
+        }
 
-       // double avgTemperature = tempSume / temperatures.size();
+        double avgTemperature = tempSume / temperatures.getTemperatures().size();
 
-        //return avgTemperature;
-   // }
+        return avgTemperature;
+    }
 
-    //public double getMedian(List<Integer> temperatures)
-    //{
-       // double median;
-        //Collections.sort(temperatures);
+    public double getMedian()
+    {
 
-        //if(temperatures.size() % 2 == 0)
-        //{
-          //  double theMiddle = temperatures.size() / 2;
-          //  double median = temperatures.get(theMiddle - 0.5);
+        Collections.sort(temperaturesList);
+        int theMiddle = temperaturesList.size() / 2;
 
-       // } else if(temperatures.size() % 2 != 0)
-      //  {
+        if(temperaturesList.size() % 2 == 0)
+        {
+            Double firstHalf = temperaturesList.get(theMiddle);
+            Double secondHalf = temperaturesList.get(theMiddle +1);
+            return (firstHalf + secondHalf) / 2;
+        } else {
+            Double median = temperaturesList.get(theMiddle);
+            return median;
+        }
+    }
 
-       // }
-
-        //return median;
-   // }
 }
