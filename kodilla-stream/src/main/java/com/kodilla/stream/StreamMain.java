@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.time.LocalTime.now;
+
 public class StreamMain {
 
     public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class StreamMain {
         Map<Integer, ForumUser> forumUsers = usersOfForum.getList().stream()
                 .filter(forumUser -> forumUser.getSex() == 'M')
                 .filter(forumUser -> forumUser.getPostsQuantity() > 0)
-                .filter(forumUser -> forumUser.getDateOfBirth().isBefore(LocalDate.of(2002, 1, 1)))
+                .filter(forumUser -> forumUser.getDateOfBirth().isBefore(LocalDate.now().minusYears(20)))
                 .collect(Collectors.toMap(ForumUser::getUserId, forumUser -> forumUser));
 
         System.out.println("# elements: " + forumUsers.size());
