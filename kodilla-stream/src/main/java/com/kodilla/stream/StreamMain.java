@@ -1,34 +1,26 @@
-package com.kodilla.stream;                                                   // [1]
+package com.kodilla.stream;
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.iterate.NumbersGenerator;
-import com.kodilla.stream.lambda.ExpressionExecutor;                          // [2]
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
 
-public class StreamMain {                                                     // [3]
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-    public static void main(String[] args) {                                   // [4]
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();       // [5]
+public class StreamMain {
 
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);           // [6]
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);           // [7]
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);           // [8]
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);           // [9]
+    public static void main(String[] args) {
+        Forum usersOfForum = new Forum();
 
-        PoemBeautifier poem = new PoemBeautifier();
-        String one = poem.beautify("ABC","o", " ", (a, b, c) -> a + b + a);
-        String two = poem.beautify("ABC","o", " ", (a, b, c) -> a + b);
-        String three = poem.beautify("ABC","o", "&", (a, b, c) -> c + a + b + a + c);
-        String four = poem.beautify("ABC","o", "&", (a, b, c) -> c + a + b + a + c);
+        Map<Integer, ForumUser> forumUsers = usersOfForum.getList().stream()
+                .filter(forumUser -> forumUser.getSex() == 'M')
+                .filter(forumUser -> forumUser.getPostsQuantity() > 0)
+                .filter(forumUser -> forumUser.getDateOfBirth().isBefore(LocalDate.of(2002, 1, 1)))
+                .collect(Collectors.toMap(ForumUser::getUserId, forumUser -> forumUser));
 
-        String upper = two.toUpperCase();
-        String lower = four.toLowerCase();
-
-        System.out.println(one);
-        System.out.println(upper);
-        System.out.println(three);
-        System.out.println(lower);
-
-        System.out.println("Using Stream to generate even numbers from 1 to 20");
-        NumbersGenerator.generateEven(20);
+        System.out.println("# elements: " + forumUsers.size());
+        forumUsers.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .forEach(System.out::println);
     }
 }
