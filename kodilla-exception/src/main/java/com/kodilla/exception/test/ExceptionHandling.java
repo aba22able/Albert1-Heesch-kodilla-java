@@ -13,5 +13,22 @@ public class ExceptionHandling {
         } catch (Exception e) {
             System.out.println("Hmm... something went wrong!");
         }
+
+        Flight example = new Flight("WAW", "IEV");
+        FlightSearcher runner = new FlightSearcher();
+
+        try {
+            runner.findFlight(example);
+        } catch (RouteNotFoundException e) {
+            System.out.println("There is no such flight :(");
+        }
+
+        Flight example2 = new Flight("WAW", "JFK");
+
+        try {
+            runner.findFlight(example2);
+        } catch (RouteNotFoundException e) {
+            System.out.println("There is no such flight :(");
+        }
     }
 }
