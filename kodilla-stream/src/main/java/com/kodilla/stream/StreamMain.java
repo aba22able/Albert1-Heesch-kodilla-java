@@ -2,10 +2,13 @@ package com.kodilla.stream;
 
 import com.kodilla.stream.forumuser.Forum;
 import com.kodilla.stream.forumuser.ForumUser;
+import com.kodilla.stream.good.patterns.challenges.MovieStore;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.time.LocalTime.now;
 
